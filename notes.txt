@@ -1,0 +1,46 @@
+GettingDataIntoVisit2.0.0.pdf  p. 89 
+   Creating a database reader plug-in
+
+tigressdata
+module load visit
+
+xmledit
+   created athdf.xml
+
+xml2plugin -clobber athdf.xml    
+   creates .C and .h files.
+
+cmake .
+
+/home/efeibush/astro/athdf/CMakeFiles/EathdfDatabase_par.dir
+/home/efeibush/astro/athdf/CMakeFiles/EathdfDatabase_ser.dir
+/home/efeibush/astro/athdf/CMakeFiles/MathdfDatabase.dir
+
+   build.make
+      changed /builddir path to actual visit installation on 
+          tigressdata:/usr/local/visit/2.10.2/...
+
+   link.txt
+      removed -leavl
+
+edit avtathdfFileFormat.C
+   PopulateDatabaseMetaData()
+   GetMesh()
+   GetVar()
+   GetVectorVar()
+
+make
+
+/home/efeibush/.visit/2.10.2/linux-x86_64/plugins/databases
+   creates:
+      libEathdfDatabase_par.so  
+      libIathdfDatabase.so
+      libEathdfDatabase_ser.so  
+      libMathdfDatabase.so
+
+visit
+   File Open
+      Shows athdf in list of file types
+      prints "Hello from populate" when file opened.  
+      No data returned yet.
+
