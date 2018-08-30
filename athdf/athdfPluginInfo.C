@@ -82,7 +82,7 @@ athdfGeneralPluginInfo::GetName() const
 const char *
 athdfGeneralPluginInfo::GetVersion() const
 {
-    return "1.0";
+    return "0.1";
 }
 
 // ****************************************************************************
@@ -101,7 +101,7 @@ athdfGeneralPluginInfo::GetVersion() const
 const char *
 athdfGeneralPluginInfo::GetID() const
 {
-    return "athdf_1.0";
+    return "athdf_0.1";
 }
 // ****************************************************************************
 //  Method: athdfGeneralPluginInfo::EnabledByDefault
@@ -119,7 +119,7 @@ athdfGeneralPluginInfo::GetID() const
 bool
 athdfGeneralPluginInfo::EnabledByDefault() const
 {
-    return true;
+    return false;
 }
 // ****************************************************************************
 //  Method: athdfGeneralPluginInfo::HasWriter
@@ -153,7 +153,9 @@ std::vector<std::string>
 athdfGeneralPluginInfo::GetDefaultFilePatterns() const
 {
     std::vector<std::string> defaultPatterns;
-    defaultPatterns.push_back("athdf");
+    defaultPatterns.push_back("*.athdf");
+    defaultPatterns.push_back("*.h5");
+    defaultPatterns.push_back("*.hdf5");
 
     return defaultPatterns;
 }
