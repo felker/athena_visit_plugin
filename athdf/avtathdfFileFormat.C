@@ -119,7 +119,7 @@ avtathdfFileFormat::PopulateDatabaseMetaData(avtDatabaseMetaData *md)
     // CODE TO ADD A MESH
     //
     string meshname = "mesh_test";
-    
+
     // AVT_RECTILINEAR_MESH, AVT_CURVILINEAR_MESH, AVT_UNSTRUCTURED_MESH,
     // AVT_POINT_MESH, AVT_SURFACE_MESH, AVT_UNKNOWN_MESH
     //
@@ -130,7 +130,7 @@ avtathdfFileFormat::PopulateDatabaseMetaData(avtDatabaseMetaData *md)
     int spatial_dimension = 3;
     int topological_dimension = 2;
     double *extents = NULL;
-    
+
     // Here's the call that tells the meta-data object that we have a mesh:
     //
     AddMeshToMetaData(md, meshname, mt, extents, nblocks, block_origin, spatial_dimension, topological_dimension);
@@ -139,10 +139,10 @@ avtathdfFileFormat::PopulateDatabaseMetaData(avtDatabaseMetaData *md)
     //
     string mesh_for_this_var = meshname; // ??? -- could be multiple meshes
     string varname = "density";
-    
+
     // AVT_NODECENT, AVT_ZONECENT, AVT_UNKNOWN_CENT
     avtCentering cent = AVT_NODECENT;
-    
+
     // Here's the call that tells the meta-data object that we have a var:
     AddScalarVarToMetaData(md, varname, mesh_for_this_var, cent);
 
@@ -188,11 +188,11 @@ avtathdfFileFormat::PopulateDatabaseMetaData(avtDatabaseMetaData *md)
     // {
     //     char str[32];
     //     sprintf(str, "mat%d", i);
-    //     -- or -- 
+    //     -- or --
     //     strcpy(str, "Aluminum");
     //     mnames.push_back(str);
     // }
-    // 
+    //
     // Here's the call that tells the meta-data object that we have a mat:
     //
     // AddMaterialToMetaData(md, matname, mesh_for_mat, nmats, mnames);
@@ -237,7 +237,29 @@ avtathdfFileFormat::PopulateDatabaseMetaData(avtDatabaseMetaData *md)
 vtkDataSet *
 avtathdfFileFormat::GetMesh(int domain, const char *meshname)
 {
-    YOU MUST IMPLEMENT THIS
+  printf("Hello from avtathdfFileFormat::GetMesh\n");
+  vtkRectilinearGrid *grid = vtkRectilinearGrid::New();
+  grid->SetDimensions(2, 3, 4);
+  vtkFloatArray *x = vtkFloatArray::New();
+  x->SetNumberOfTuples(2);
+  x->SetTuple1(0, 20.);
+  x->SetTuple1(1, 21.);
+  grid->SetXCoordinates(x);
+  vtkFloatArray *y = vtkFloatArray::New();
+  y->SetNumberOfTuples(3);
+  y->SetTuple1(0, 30.);
+  y->SetTuple1(1, 31.);
+  y->SetTuple1(2, 32.);
+  grid->SetYCoordinates(y);
+
+  vtkFloatArray *z = vtkFloatArray::New();
+  z->SetNumberOfTuples(4);
+  z->SetTuple1(0, 40.);
+  z->SetTuple1(1, 41.);
+  z->SetTuple1(2, 42.);
+  z->SetTuple1(3, 43.);
+  grid->SetZCoordinates(z);
+  return grid;
 }
 
 
@@ -280,7 +302,7 @@ avtathdfFileFormat::GetVar(int domain, const char *varname)
        {
           rv->SetTuple1(i, 10. * i);  // you must determine value for ith entry.
        }
-    
+
     return rv;
 }
 
@@ -335,7 +357,7 @@ avtathdfFileFormat::GetVectorVar(int domain, const char *varname)
     //           one_entry[j] = ...
     //      for (j = ncomps ; j < ucomps ; j++)
     //           one_entry[j] = 0.;
-    //      rv->SetTuple(i, one_entry); 
+    //      rv->SetTuple(i, one_entry);
     // }
     //
     // delete [] one_entry;
